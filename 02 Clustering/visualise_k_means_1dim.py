@@ -60,12 +60,9 @@ class Solver:
             mean = {}
             for centroid in centroids:
                 mean[centroid] = []
-            # print(mean)
             for i in range(number_of_iterations):
                 points_copy = points.copy()
-                # print("old_mean", mean)
                 mean = self.get_new_centroids(mean)
-                # print("new_mean", mean)
                 for point in points_copy:
                     distance = 999999
                     for centroid in mean.keys():
@@ -73,15 +70,12 @@ class Solver:
                         if self.manhattan_distance(point, centroid) < distance:
                             distance = self.manhattan_distance(point, centroid)
                             closest_centroid = centroid
-                    # print("closest_centroid: ", closest_centroid)
-                    # print("mean", mean)
-                    # print("clos", mean[closest_centroid])
-                    # print("point", point)
+                   
                     mean[closest_centroid].append(point)
-                # print("her")
+                
             if self.SSE(mean) < best_try[0]:
                 best_try = [self.SSE(mean), mean]
-        # print("nå")
+        
         return best_try[0], best_try[1]
 
     def main(self):

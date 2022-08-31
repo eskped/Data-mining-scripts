@@ -1,13 +1,17 @@
+import matplotlib.pyplot as plt
+
+
 class Solver:
     def __init__(self):
         self.points = [(19, 20), (18, 19), (17, 18),
-                       (28, 35), (27, 34), (28, 33), (2, 2), (100, 100), (1, 1), (0, 0)]
+                       (28, 35), (27, 34), (28, 33), (2, 2), (40, 40), (1, 1), (0, 0)]
         self.core_points = []
         self.noise_points = []
         self.border_points = []
         self.clusters = {}
-        self.eps = 2
+        self.eps = 3
         self.MinPts = 3
+        self.eps_range = [1, 5]
 
     def find_core_points(self):
         for point in self.points:
@@ -66,7 +70,21 @@ class Solver:
                 sse += (self.manhattan_distance(point, centroid))**2
         return round(sse, 5)
 
-    def main(self):
+    def get_3rd_point_distance(self):
+        dis = []
+        for point in self.points:
+            distances = []
+            for other_point in self.points:
+                if point != other_point:
+                    distances.append(
+                        (self.manhattan_distance(point, other_point)))
+            distances.sort()
+            dis.append(distances[2])
+
+        dis.sort()
+        return dis
+
+    def dbscan(self):
         self.find_core_points()
         self.find_noise_points()
         self.find_border_points()
@@ -92,11 +110,18 @@ class Solver:
 
             if increase_index:
                 index += 1
-        return self.clusters, self.noise_points, self.get_SSE(self.clusters)
+        return self.clusters
+
+    def main(self):
+        values = self.get_3rd_point_distance()
+        plt.plot(values)
+        plt.show()
+        return self.dbscan(), self.noise_points, self.get_SSE(self.clusters), self.get_3rd_point_distance()
 
 
 solver = Solver()
-clusters, noise, sse = solver.main()
-print(clusters)
-print(noise)
-print(sse)
+clusters, noise, sse, third = solver.main()
+print("Clusters: ", clusters)
+print("Noise points: ", noise)
+print("SSE: ", sse)
+print("Distances to third point", third)
