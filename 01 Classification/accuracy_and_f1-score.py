@@ -1,8 +1,3 @@
-truth = [1, 1, 1, 0, 0, 0]
-predicted_a = [0, 1, 0, 0, 0, 1]
-predicted_b = [0, 0, 1, 1, 1, 0]
-
-
 def accuracy(truth, predicted):
     correct = 0
     for i in range(len(truth)):
@@ -28,5 +23,31 @@ def f1(truth, predicted):
     return f1, round(precision, 5), round(recall, 5)
 
 
-print("Accuracy:", accuracy(truth, predicted_b))
-print("F1, precicion, recall:", f1(truth, predicted_b))
+truth = [1, 1, 1, 0, 0, 0]
+predicted_a = [0, 1, 0, 0, 0, 1]
+predicted_b = [0, 0, 1, 1, 1, 0]
+
+
+print("Accuracy:", accuracy(truth, predicted_a))
+print("F1, precicion, recall:", f1(truth, predicted_a))
+
+
+def accuracy(TP, TN, n):
+    return round((TP + TN) / n, 5)
+
+
+def f1(TP, FP, FN):
+    precision = TP / (TP + FP)
+    recall = TP / (TP + FN)
+    f1 = round(2 * precision * recall / (precision + recall), 5)
+    return f1, round(precision, 5), round(recall, 5)
+
+
+TP_a = 85
+TN_a = 0
+FP_a = 201
+FN_a = 0
+n = TP_a + TN_a + FP_a + FN_a
+
+# print("Accuracy:", accuracy(TP_a, TN_a, n))
+# print("F1, precicion, recall:", f1(TP_a, FP_a, FN_a))
