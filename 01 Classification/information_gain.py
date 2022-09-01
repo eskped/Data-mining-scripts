@@ -83,5 +83,5 @@ def main():
                   information_gain(data, attribute, None))
 
 
-main()
-# for i in len(data):
+if __name__ == "__main__":
+    main()
