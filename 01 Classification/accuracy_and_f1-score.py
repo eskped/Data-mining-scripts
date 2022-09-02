@@ -23,13 +23,13 @@ def f1(truth, predicted):
     return f1, round(precision, 5), round(recall, 5)
 
 
-truth = [1, 1, 1, 0, 0, 0]
-predicted_a = [0, 1, 0, 0, 0, 1]
-predicted_b = [0, 0, 1, 1, 1, 0]
+truth = [0, 0, 0, 0, 0, 1, 1, 1, 1, 1]
+predicted_a = [0, 0, 0, 0, 1, 0, 1, 1, 1, 1]
+predicted_b = [0, 0, 0, 0, 1, 0, 1, 0, 1, 1]
 
 
-print("Accuracy:", accuracy(truth, predicted_a))
-print("F1, precicion, recall:", f1(truth, predicted_a))
+print("Accuracy:", accuracy(truth, predicted_b))
+print("F1, precicion, recall:", f1(truth, predicted_b))
 
 
 def accuracy(TP, TN, n):

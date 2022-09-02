@@ -1,12 +1,19 @@
 import math
+# data = [(("google.com", 0), "Benign"),
+#         (("google.com", 4), "Benign"),
+#         (("google.com", 20), "Benign"),
+#         (("google.com", 30), "Attack"),
+#         (("reddit.com", 3), "Benign"),
+#         (("reddit.com", 32), "Attack"),
+#         (("reddit.com", 29), "Attack"),
+#         (("howtohack.com", 3), "Benign"),
+#         (("howtohack.com", 10), "Attack"),
+#         (("howtohack.com", 47), "Attack"), ]
+
+
 data = [(("google.com", 0), "Benign"),
-        (("google.com", 4), "Benign"),
-        (("google.com", 20), "Benign"),
-        (("google.com", 30), "Attack"),
         (("reddit.com", 3), "Benign"),
-        (("reddit.com", 32), "Attack"),
         (("reddit.com", 29), "Attack"),
-        (("howtohack.com", 3), "Benign"),
         (("howtohack.com", 10), "Attack"),
         (("howtohack.com", 47), "Attack"), ]
 
@@ -74,8 +81,9 @@ def main():
             for i in range(0, max([i[0][attributes.index(attribute)] for i in data])+1):
                 if information_gain(data, attribute, i) > max_gain:
                     max_gain = information_gain(data, attribute, i)
-                    split = (sort_data[i-1][0][attributes.index(
-                        attribute)] + sort_data[i][0][attributes.index(attribute)])/2
+                    if len(sort_data[i]) > 1:
+                        split = (sort_data[i-1][0][attributes.index(
+                            attribute)] + sort_data[i][0][attributes.index(attribute)])/2
             print("Information gain for", attribute,
                   "is", max_gain, "with split value", split)
         else:

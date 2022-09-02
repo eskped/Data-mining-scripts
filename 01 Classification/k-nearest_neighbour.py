@@ -6,9 +6,23 @@ data = [
     ((25, 40, 4), "Yes"),
 ]
 
+# remember may need to standardize the data before using this algorithm
+training_data = [
+    ((1, 0.4), 0),
+    ((1.3, -0.4), 0),
+    ((1.1, 0.8), 0),
+    ((1.0, -2.0), 0),
+    ((-0.1, 0.0), 0),
+    ((0.0, 0.3), 1),
+    ((-0.6, 0.9), 1),
+    ((-1.4, -1.4), 1),
+    ((-1.3, -0.2), 1),
+    ((-1.0, 1.5), 1),
+]
 
-attributes = ["Age", "Income", "Games Played"]
-numeric_attributes = ["Age", "Income", "Games Played"]
+
+attributes = ["Variance", "Image"]
+numeric_attributes = ["Variance", "Image"]
 
 
 def manhattan_distance(a, b):
@@ -35,21 +49,27 @@ def chebychev_distance(a, b):
 def find_nearest_neighbours(data, instance, k):
     distances = []
     for i in data:
-        distances.append((euclidean_distance(i[0], instance), i))
+        distances.append((round(manhattan_distance(i[0], instance), 5), i))
     distances.sort(key=lambda x: x[0])
     return distances[0:k]
 
 
-k = 5
+k = 4
 instance = (37, 50, 2)
 
 
 def main():
-    noe = find_nearest_neighbours(data, instance, k)
+
+    # instances = []
+    # for i in training_data:
+    #     instances.append(i[0])
+
+    # for instance1 in instances:
     prediction = []
-    for i in noe:
+    noe = find_nearest_neighbours(training_data, instance, k)
+    for i in noe[1:]:
         prediction.append(i[1][1])
-        print("Number:", noe.index(i)+1, "Distance:", i[0], "Data: ", i[1])
+        print("K:", noe.index(i)+1, "Distance:", i[0], "Data: ", i[1])
     print("Prediction:", max(set(prediction), key=prediction.count))
 
 
