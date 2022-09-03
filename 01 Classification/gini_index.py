@@ -1,11 +1,19 @@
-data = [(("google.com", 0), "Benign"),
-        (("google.com", 4), "Benign"),
-        (("google.com", 20), "Benign"),
+# data = [(("google.com", 0), "Benign"),
+#         (("google.com", 4), "Benign"),
+#         (("google.com", 20), "Benign"),
+#         (("google.com", 30), "Attack"),
+#         (("reddit.com", 3), "Benign"),
+#         (("reddit.com", 32), "Attack"),
+#         (("reddit.com", 29), "Attack"),
+#         (("howtohack.com", 3), "Benign"),
+#         (("howtohack.com", 10), "Attack"),
+#         (("howtohack.com", 47), "Attack"), ]
+
+
+data = [(("google.com", 20), "Benign"),
         (("google.com", 30), "Attack"),
-        (("reddit.com", 3), "Benign"),
         (("reddit.com", 32), "Attack"),
         (("reddit.com", 29), "Attack"),
-        (("howtohack.com", 3), "Benign"),
         (("howtohack.com", 10), "Attack"),
         (("howtohack.com", 47), "Attack"), ]
 
@@ -63,11 +71,12 @@ def main():
         if attribute in numeric_attributes:
             split = None
             min_gini = 1
+            previous = 0
             for i in range(0, max([i[0][attributes.index(attribute)] for i in data])+1):
                 if gini_index(data, attribute, i) < min_gini:
                     min_gini = gini_index(data, attribute, i)
-                    split = (sort_data[i-1][0][attributes.index(
-                        attribute)] + sort_data[i][0][attributes.index(attribute)])/2
+                    split = (previous + i)/2
+                    previous = i
             print("Gini index for", attribute,
                   "is", min_gini, "with split value", split)
         else:
