@@ -54,24 +54,19 @@ def find_nearest_neighbours(data, instance, k):
     return distances[0:k]
 
 
-k = 4
-instance = (37, 50, 2)
+def main(k, instance, data):
 
-
-def main():
-
-    # instances = []
-    # for i in training_data:
-    #     instances.append(i[0])
-
-    # for instance1 in instances:
     prediction = []
-    noe = find_nearest_neighbours(training_data, instance, k)
+    noe = find_nearest_neighbours(data, instance, k)
+    print("instance", instance)
     for i in noe[1:]:
         prediction.append(i[1][1])
-        print("K:", noe.index(i)+1, "Distance:", i[0], "Data: ", i[1])
+        print("Closest neighbour number:", noe.index(i)+1,
+              "Distance to that neighbour:", i[0], "Point: ", i[1])
     print("Prediction:", max(set(prediction), key=prediction.count))
 
 
+k = 4
+instance = (37, 50, 2)
 if __name__ == "__main__":
-    main()
+    main(k, instance, data)
