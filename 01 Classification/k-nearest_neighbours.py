@@ -59,14 +59,16 @@ def main(k, instance, data):
     prediction = []
     noe = find_nearest_neighbours(data, instance, k)
     print("instance", instance)
-    for i in noe[1:]:
+    if instance in data and instance in noe:
+        noe.remove(instance)
+    for i in noe:
         prediction.append(i[1][1])
         print("Closest neighbour number:", noe.index(i)+1,
               "Distance to that neighbour:", i[0], "Point: ", i[1])
     print("Prediction:", max(set(prediction), key=prediction.count))
 
 
-k = 4
-instance = (37, 50, 2)
+k = 3
+instance = (0, 0)
 if __name__ == "__main__":
-    main(k, instance, data)
+    main(k, instance, training_data)
